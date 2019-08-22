@@ -7,7 +7,8 @@ There are 3 parts to this code example,
 2. The api project, which when run will expose an api at http://localhost:1040/api/todolist
 3. The client project, which when run will call the API using client credentials flow.
 
-## Setup
+## Setup - using client secrets
+**If you wish to not use client secrets and wish to use service principals please see [service principal guide](sp_client/serviceprincipal.md)** 
 
 1. Ensure you have azure CLI installed and perform an `az login`
 2. When in the correct subscription, run the command from setup.sh .. tweak the values accordingly to suit your environment. Of special mention is the app id URI, it defaults to `https://<tenantname>.onmicrosoft.com/api` .. this is tweakable, but you'll need to update your code (both client and server) to match whatever you choose here.
