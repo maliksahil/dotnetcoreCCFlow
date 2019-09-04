@@ -23,6 +23,10 @@ namespace api.Controllers
         [HttpGet]
         public IEnumerable<TodoItem> Get()
         {
+            // identity of the caller.
+            System.Diagnostics.Debug.WriteLine(
+                User.Claims.Where(claim => (claim.Type == "appid")).FirstOrDefault().Value);
+            // to get groups, use the "groups" claim, and set "groupMembershipClaims": "All" in the manifest.xml of the app
             return todoStore;
         }
 
