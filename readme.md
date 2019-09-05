@@ -20,6 +20,22 @@ Second, run the client project
 
 Verify that the client can call the server using a Bearer token.
 
+# Authorization
+Under `api\appsettings.json` you'll find a section as below,
+
+```
+   "AllowedGroups": [
+    "GUID"
+  ],
+```
+
+The idea here is that the caller must belong to the aforementioned group. 
+To use this authorization, 
+1. You decorate your controllers with `[Authorize(Policy="SPInGroup")]`
+2. Run the below command to enable sending groups in the claim of the sender `az ad app update --id <yourappid> --set groupMembershipClaims=All`
+
+Now if the calling SP is not part of the AllowedGroup, you'll get a 401.
+
 ## Important note ##
 This is demo code, as far as logging goes. Of special mention is PII logging is set to true, to help easy debugging.
 If you deploy this to prod, ensure you turn that off.

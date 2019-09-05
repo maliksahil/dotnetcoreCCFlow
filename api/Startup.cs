@@ -26,8 +26,18 @@ namespace api
             {
                 sharedOptions.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddAzureAdBearer(options => Configuration.Bind("AzureAd", options));
+            
+            // not allowed group fc8a18e1-e8bb-4cf8-8a6a-8221f318aa53
+            var allowedGroups = Configuration.GetSection("AllowedGroups").Get<string[]>();            
+            services.AddAuthorization(options => {
+                    options.AddPolicy("SPInGroup", policy =>
+                        policy.RequireClaim("groups", allowedGroups));
+                });
+
             services.AddMvc();
         }
+
+
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
